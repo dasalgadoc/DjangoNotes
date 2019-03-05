@@ -16,11 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from NotesProject import views
+from post import views as posts_views
+from NotesProject import views as local_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^holaMundo/', views.holaMundo),
-    url(r'^numeros/', views.numeros),
-    url(r'^numerosJSON/',views.numerosJSON)
+    url(r'^holaMundo/', local_views.holaMundo),
+    url(r'^numeros/', local_views.numeros),
+    url(r'^numerosJSON/', local_views.numerosJSON),
+    url(r'^sorted/', local_views.sort_integers),
+    url(r'^posts/', posts_views.list_post),
 ]

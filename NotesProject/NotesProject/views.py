@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.http import JsonResponse
 import random
+import json
 
 def holaMundo(request):
     return HttpResponse('Hola, Mundo')
@@ -26,3 +27,18 @@ def get_list():
     numeros.sort()
     
     return numeros
+
+
+def sort_integers(request):
+    """Return a JSON response with sorted integers."""
+    numbers = [int(i) for i in request.GET['numbers'].split(',')]
+    sorted_ints = sorted(numbers)
+    data = {
+        'status': 'ok',
+        'numbers': sorted_ints,
+        'message': 'Integers sorted successfully.'
+    }
+    return HttpResponse(
+        json.dumps(data, indent=4),
+        content_type='application/json'
+    )
