@@ -6,10 +6,10 @@ from django.shortcuts import render
 
 posts = [
     {
-        'name': 'Shiba',
+        'name': 'Bernesse',
         'user': 'Diego Salgado',
         'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'picture': 'https://i.imgur.com/JXetxQh.jpg'
+        'picture': 'https://i.pinimg.com/originals/01/c9/2e/01c92ec631bc743f88adb3520792cf8b.jpg'
     } ,
     {
         'name': 'Fence',
