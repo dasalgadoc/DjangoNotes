@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from post import views as posts_views
+from users import views as users_views
 from NotesProject import views as local_views
 
 urlpatterns = [
@@ -29,5 +30,7 @@ urlpatterns = [
     url(r'^numeros/', local_views.numeros),
     url(r'^numerosJSON/', local_views.numerosJSON),
     url(r'^sorted/', local_views.sort_integers),
-    url(r'^posts/', posts_views.list_post),
+    url(r'^posts/', posts_views.list_post, name='feed'),
+    url(r'^users/login/', users_views.login_view, name="login"),
+    url(r'^users/logout/', users_views.logout_view, name="logout")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
