@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     # Nuestras Apps
     'post',
+	'users',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Para trabajar con Media Options
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

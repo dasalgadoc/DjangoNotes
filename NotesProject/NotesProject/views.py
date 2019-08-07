@@ -42,3 +42,7 @@ def sort_integers(request):
         json.dumps(data, indent=4),
         content_type='application/json'
     )
+	
+	
+def nada(request):
+	return HttpResponse("Nada!")

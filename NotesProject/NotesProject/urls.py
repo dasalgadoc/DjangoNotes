@@ -16,6 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+# Para Media
+from django.conf import settings
+from django.conf.urls.static import static
+
 from post import views as posts_views
 from NotesProject import views as local_views
 
@@ -26,4 +30,4 @@ urlpatterns = [
     url(r'^numerosJSON/', local_views.numerosJSON),
     url(r'^sorted/', local_views.sort_integers),
     url(r'^posts/', posts_views.list_post),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

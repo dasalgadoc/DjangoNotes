@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 """
 class User(models.Model):
     
@@ -28,3 +30,20 @@ class User(models.Model):
 					is_admin = self.is_admin
                     )
 """
+
+class Post(models.Model):
+    """Post model."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #Evita referencias circular con el String
+    profile = models.ForeignKey('users.Profile', on_delete=models.CASCADE)
+
+    title = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to='posts/photos')
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        """Return title and username."""
+        return '{} by @{}'.format(self.title, self.user.username)
