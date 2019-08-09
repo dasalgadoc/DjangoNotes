@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'^posts/', posts_views.list_post, name='feed'),
     url(r'^users/login/', users_views.login_view, name="login"),
     url(r'^users/logout/', users_views.logout_view, name="logout"),
-    url(r'^users/signup', users_views.signup, name="signup")
+    url(r'^users/signup/', users_views.signup, name="signup"),
+    url(r'^users/me/profile/', users_views.update_profile, name="update_profile")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
