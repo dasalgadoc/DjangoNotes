@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.urls import path
 
 # Para Media
 from django.conf import settings
@@ -30,7 +31,8 @@ urlpatterns = [
     url(r'^numeros/', local_views.numeros),
     url(r'^numerosJSON/', local_views.numerosJSON),
     url(r'^sorted/', local_views.sort_integers),
-    url(r'^posts/', posts_views.list_post, name='feed'),
+    path('', posts_views.list_post, name='feed'),
+    url(r'^posts/new/', posts_views.create_post, name="create"),
     url(r'^users/login/', users_views.login_view, name="login"),
     url(r'^users/logout/', users_views.logout_view, name="logout"),
     url(r'^users/signup/', users_views.signup, name="signup"),

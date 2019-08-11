@@ -1,43 +1,40 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from datetime import datetime
-
+# Django
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 
-from django.shortcuts import render
+# Forms
+from post.forms import PostForm
 
-posts = [
-    {
-        'title': 'Bernesse',
-        'user': {
-            'name': 'Diego Salgado',
-            'picture': 'https://picsum.photos/60/60/?image=883'
-        },
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'photo': 'https://i.pinimg.com/originals/01/c9/2e/01c92ec631bc743f88adb3520792cf8b.jpg',
-    },
-    {
-        'title': 'Via Láctea',
-        'user': {
-            'name': 'Daniela S.',
-            'picture': 'https://picsum.photos/60/60/?image=1005'
-        },
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/800/800/?image=903',
-    },
-    {
-        'title': 'Nuevo auditorio',
-        'user': {
-            'name': 'Uriel (thespianartist)',
-            'picture': 'https://picsum.photos/60/60/?image=883'
-        },
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/500/700/?image=1076',
-    }
-]
-
+# Models
+from post.models import Post
 
 # Create your views here.
 @login_required
 def list_post(request):
-    return render(request, 'posts/feed.html', {'posts':posts})
+    """List existing posts."""
+    posts = Post.objects.all().order_by('-created')
+
+    return render(request, 'posts/feed.html', {'posts': posts})
+
+
+@login_required
+def create_post(request):
+    """Create new post view."""
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('feed')
+
+    else:
+        form = PostForm()
+
+    return render(
+        request=request,
+        template_name='posts/new.html',
+        context={
+            'form': form,
+            'user': request.user,
+            'profile': request.user.profile
+        }
+    )
